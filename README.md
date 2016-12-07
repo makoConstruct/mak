@@ -8,16 +8,16 @@ Progress: I have to do other things right now but here's the idea. I did [a grap
 
 ###concept
 
-Mak is inspired by gulp, but replaces streams with graph nodes representing stages. By using graph analysis instead of simple, autonomous streams, mak is able to centralize planning and control over its bodily systems, reaching new depths of electronic intelligence.
+Mak is inspired by gulp, but replaces streams with graph nodes representing stages. By using graph analysis instead of simple, autonomous streams, mak is able to centralize planning and control over its bodily systems, ascending to unprecedented levels of electronic intelligence.
 
 Here is a depiction of mak that will be at once familiar and alien to gulp users:
 
 ```typescript
-import {mak, State} from 'mak'
+import {mak, write, dir, file} from 'mak'
 import {tsc} from 'mak-ts'
 import {unmodulizer} from 'mak-unmodulizer'
 
-mak.task('project', ['pack'], (pack)=> mak.write(pack, mak.dir('assets/')) )
+mak.task('project', ['pack'], (pack)=> write(pack, dir('assets/')) )
 
 mak.task('pack', ['compile typescript'], (tscresults)=> unmodulizer(tscresults) )
 
@@ -27,7 +27,7 @@ mak.task('compile typescript', ()=>
 		target: 'ES5',
 		sourceMap: true,
 		module: 'commonjs',
-		inputFiles: mak.file('mem.ts')
+		inputFiles: file('mem.ts')
 	})
 )
 ```
@@ -35,7 +35,7 @@ mak.task('compile typescript', ()=>
 As you can see, the nerves cross inter-task barriers. There is a reason for this, but I feel the tasks mostly just get in the way here. Let's phrase this differently.
 
 ```typescript
-import {mak, State, write, dir, file} from 'mak'
+import {mak, write, dir, file} from 'mak'
 import {tsc} from 'mak-ts'
 import {unmodulizer} from 'mak-unmodulizer'
 
@@ -61,7 +61,7 @@ You will also note that there is no `.pipe()`. `.pipe()` is actually stupid, as 
 
 A rundown of what happens here:
 
-* `mak.file()` resolves a data source ./mem.ts as an input. The node notes the file's modification date.
+* `mak.file` resolves a data source ./mem.ts as an input. The node notes the file's modification date.
 
 * `tsc` composes a task node that relates inputFiles (mem.ts) as one of its dependencies. The system will decides that tsc's task node inherits its recency from that of the `mak.file` node, which is the modification date of the file.
 
