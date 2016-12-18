@@ -32,7 +32,7 @@ mak.task('compile typescript', ()=>
 )
 ```
 
-As you can see, the nerves cross inter-task barriers. There is a reason for this, but I feel the tasks mostly just get in the way here. Let's phrase this differently.
+As you can see, the nerves cross inter-task barriers. There is a reason for this, but I feel the tasks are getting in the way here. Let's phrase this differently so that you can see the structure of the build more clearly.
 
 ```typescript
 import {mak, write, dir, file} from 'mak'
@@ -57,7 +57,7 @@ mak.task('project', ()=>
 
 The role of the task is not to run the compilation stages, but to describe them. The overarching system then decides which parts of it need to run. It is supplied with a lot of information.
 
-You will also note that there is no `.pipe()`. `.pipe()` is actually stupid, as it assumes that each task will only take one input, or that the meaning of the input should always be the same in each case, or obvious. Data flow systems don't really work that way. In mak, each of a task's inputs are expected to be named and documented. It turns out, if we dig, we find that already have a very robust syntax that allows specifying processes that take multiple inputs, it was invented a long time ago and is already ubiquitous in modern languages. The terminology preferred by the mak project for processes that take one or more inputs is "mergy box", but the standard term is "function", and we will use this in documentation instead, to avoid unnecessary obfuscation.
+You will also note that there is no `.pipe()`. `.pipe()` is actually stupid, as it assumes that each task will only take one input, or that the meaning of the input should always be the same in each case, or obvious. Data flow systems don't really work that way. In mak, each of a task's inputs are expected to be named and documented. It turns out, if we dig, we find that we already have a very robust syntax that allows specifying processes that take multiple inputs, it was invented a long time ago and is already ubiquitous in modern languages. The terminology preferred by the mak project for processes that take one or more inputs is "mergy box", but the standard term is "function", and we will use this in documentation instead, to avoid unnecessary obfuscation.
 
 A rundown of what happens here:
 
